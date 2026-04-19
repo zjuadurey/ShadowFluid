@@ -2,7 +2,7 @@
 
 We thank the reviewer for the thoughtful feedback. We agree that the paper’s AI4Science positioning, the scope of the demonstrated benefit, and the distinction from prior shadow Hamiltonian simulation should have been stated more clearly. We address these points below.
 
-## 1. On AI4Science positioning and KDD relevance
+## 1. AI4Science positioning and KDD relevance
 
 We agree that the main contribution is an **error-certified reduced simulation framework** for scientific dynamical systems, rather than a learned surrogate in the narrow sense. Its AI4Science role is to provide a **compact, task-aligned, physically grounded, and certifiable representation** that can support downstream scientific learning.
 
@@ -16,9 +16,9 @@ To make this concrete, we added a **small downstream-learning probe** in the tes
 
 Thus, under the same learner and matched feature dimension, using $Z(t)$ yields lower test MSE than reconstructed low-pass density features. This makes the AI4Science connection concrete: ShadowFluid is not only a reduced simulator, but also a certified reduced representation for downstream scientific learning.
 
-## 2. On the concretely demonstrated quantum implementation benefit
+## 2. Concretely demonstrated quantum implementation benefit
 
-We respectfully clarify that the current paper is not purely classical. In addition to the classical validation of the error-control theory, we also implemented the full and reduced targets as quantum circuits and compared their compiled resource costs.
+We respectfully clarify that the current paper is not purely classical. In addition to the classical validation of the error-control theory, we also **synthesized and transpiled** the full and reduced targets as quantum circuits and compared their compiled resource costs.
 
 | Case | Full target | Reduced target | Qubits | 2Q gate count | 2Q depth |
 |---|---|---|---:|---:|---:|
@@ -27,12 +27,18 @@ We respectfully clarify that the current paper is not purely classical. In addit
 
 These quantum-circuit experiments show a concrete **implementation-level benefit** of the operator-first reduction: the reduced target yields materially smaller compiled quantum workloads. In particular, the substantial reductions in two-qubit gate count and two-qubit depth directly indicate fewer entangling operations and fewer sequential entangling layers after transpilation.
 
-At the representation level, ShadowFluid replaces a full-state target of dimension $d=N^2$ by a task-aligned reduced object of size $M=|K||R|$. Accordingly, in the operator-first workflow the relevant burden scales with task bandwidth and coupling-local reference structure rather than full grid resolution. Thus, while we do not claim a hardware-level end-to-end quantum-advantage demonstration, it is more accurate to describe the current paper as combining classical theory validation with concrete quantum implementation evidence.
+At the representation level, ShadowFluid replaces a full-state target of dimension $d=N^2$ by a task-aligned reduced object of size $M=|K||R|$. Accordingly, in the quantum-native operator-first workflow discussed in the paper, the relevant burden scales with task bandwidth and coupling-local reference structure rather than full grid resolution, and the measurement target is correspondingly reduced from $O(N^2)$ full-field quantities to $O(|K||R|)$ operator expectations. Thus, while we do not claim a hardware-level end-to-end quantum-advantage demonstration, it is more accurate to describe the current paper as combining classical theory validation with concrete quantum implementation evidence.
 
-## 3. On novelty beyond prior shadow Hamiltonian simulation
+## 3. About novelty beyond prior shadow Hamiltonian simulation
 
 We agree that the distinction from prior shadow Hamiltonian simulation should have been made more explicit. The key novelty is **not** simply applying a general shadow-Hamiltonian idea to fluid dynamics. Rather, prior shadow Hamiltonian simulation provides a reduced evolution principle under strict operator closure, whereas ShadowFluid turns this principle into a **task-driven and certifiable reduced-simulation method for fluid observables in the practically relevant approximate-closure regime**.
 
-Concretely, ShadowFluid adds: (1) a **task-driven multi-reference coherence dictionary** tailored to low-frequency fluid observables in the Fourier basis; (2) a **coupling-graph-based dictionary construction** for PDE-style Fourier-space Hamiltonians; and (3) a **state-independent, a priori computable commutator-leakage certificate** for approximate closure, together with empirical validation of the hierarchy from computable bound to operator-level discrepancy to downstream task error on 2D Schr\"odinger-flow benchmarks.
+Concretely, ShadowFluid adds:
+
+(1) a **task-driven multi-reference coherence dictionary** tailored to low-frequency fluid observables in the Fourier basis;
+
+(2) a **coupling-graph-based dictionary construction** for PDE-style Fourier-space Hamiltonians;
+
+(3) a **state-independent, a priori computable commutator-leakage certificate** for approximate closure, together with empirical validation of the hierarchy from computable bound to operator-level discrepancy to downstream task error on 2D Schr\"odinger-flow benchmarks.
 
 In short, if Somma et al. establish the shadow-evolution principle under closure, ShadowFluid contributes the **task construction, approximate-closure treatment, and computable certification machinery** needed to make that principle usable for reduced quantum fluid simulation.
